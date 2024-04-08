@@ -39,6 +39,21 @@ public class MenuController {
 
         int id = Integer.parseInt(parameter.get("id"));
         String name = parameter.get("name");
+        String empNo = parameter.get("empNo");
+        String email = parameter.get("email");
+        String phone = parameter.get("phone");
+        String deptCode = parameter.get("deptCode");
+        String jobCode = parameter.get("jobCode");
+        String salLevel = parameter.get("salLevel");
+        int salary = Integer.parseInt(parameter.get("salary"));
+        double bonus = Double.parseDouble(parameter.get("bonus"));
+        int managerId = Integer.parseInt(parameter.get("managerId"));
+        String hireDate = parameter.get("hireDate");
+        String entDate = parameter.get("entDate");
+        String entYn = parameter.get("entYn");
+
+
+
 
 
     }

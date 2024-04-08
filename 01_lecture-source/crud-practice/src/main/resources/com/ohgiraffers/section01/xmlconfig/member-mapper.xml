@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MemberMapper">
+    <resultMap id="memberResultMap" type="com.ohgiraffers.section01.xmlconfig.MemberDTO">
+        <id property="id" column="EMP_ID"/>
+        <result property="name" column="EMP_NAME"/>
+        <result property="empNo" column="EMP_NO"/>
+        <result property="email" column="EMAIL"/>
+        <result property="phone" column="PHONE"/>
+        <result property="deptCode" column="DEPT_CODE"/>
+        <result property="jobCode" column="JOB_CODE"/>
+        <result property="salLevel" column="SAL_LEVEL"/>
+        <result property="salary" column="SALARY"/>
+        <result property="bonus" column="BONUS"/>
+        <result property="managerId" column="MANAGER_ID"/>
+        <result property="hireDate" column="HIRE_DATE"/>
+        <result property="entDate" column="ENT_DATE"/>
+        <result property="entYn" column="ENT_YN"/>
+    </resultMap>
+
+    <select id="selectAllMember" parameterType="com.ohgiraffers.section01.xmlconfig.MemberDTO" resultMap="memberResultMap">
+        SELECT
+               EMP_ID,
+               EMP_NAME,
+               EMP_NO,
+               EMAIL,
+               PHONE,
+               DEPT_CODE,
+               JOB_CODE,
+               SAL_LEVEL,
+               SALARY,
+               BONUS,
+               MANAGER_ID,
+               HIRE_DATE,
+               ENT_DATE,
+               ENT_YN
+           FROM EMPLOYEE
+        ORDER BY EMP_ID
+    </select>
+
+    <select id="selectMemberById" parameterType="_int" resultMap="memberResultMap">
+        SELECT
+            EMP_ID,
+            EMP_NAME,
+            EMP_NO,
+            EMAIL,
+            PHONE,
+            DEPT_CODE,
+            JOB_CODE,
+            SAL_LEVEL,
+            SALARY,
+            BONUS,
+            MANAGER_ID,
+            HIRE_DATE,
+            ENT_DATE,
+            ENT_YN
+       FROM EMPLOYEE
+      WHERE EMP_ID = #{ id }
+    </select>
+</mapper>

@@ -92,14 +92,14 @@
 
     <select id="searchMenuByRandomMenuCode" parameterType="hashmap" resultMap="menuResultMap">
         SELECT
-               A.MENU_CODE
-             , A.MENU_NAME
-             , A.MENU_PRICE
-             , A.CATEGORY_CODE
-             , A.ORDERABLE_STATUS
-          FROM TBL_MENU A
-         WHERE 1 = 1
-           AND A.MENU_CODE IN
+        A.MENU_CODE
+        , A.MENU_NAME
+        , A.MENU_PRICE
+        , A.CATEGORY_CODE
+        , A.ORDERABLE_STATUS
+        FROM TBL_MENU A
+        WHERE 1 = 1
+        AND A.MENU_CODE IN
         <foreach collection="randomCodeList" item="menuCode" open="(" separator=", " close=")">
             #{ menuCode }
         </foreach>
@@ -107,12 +107,12 @@
 
     <select id="searchMenuByCodeOrSearchAll" parameterType="SearchCriteria" resultMap="menuResultMap">
         SELECT
-              A.MENU_CODE
-            , A.MENU_NAME
-            , A.MENU_PRICE
-            , A.CATEGORY_CODE
-            , A.ORDERABLE_STATUS
-           FROM TBL_MENU A
+        A.MENU_CODE
+        , A.MENU_NAME
+        , A.MENU_PRICE
+        , A.CATEGORY_CODE
+        , A.ORDERABLE_STATUS
+        FROM TBL_MENU A
         <if test="condition != null and condition eq 'menuCode'">
             <where>
                 A.MENU_CODE = #{ value }
@@ -125,27 +125,27 @@
                         엘리먼트 구문이 AND나 OR로 시작하면 자동으로 해당 단어를 지워준다. -->
     <select id="searchMenuByNameOrCategory" parameterType="hashmap" resultMap="menuResultMap">
         SELECT
-               A.MENU_CODE
-             , A.MENU_NAME
-             , A.MENU_PRICE
-             , A.CATEGORY_CODE
-             , A.ORDERABLE_STATUS
-          FROM TBL_MENU A
-<!--        <if test="nameValue != null">-->
-<!--            WHERE A.MENU_NAME LIKE CONCAT('%', #{ nameValue }, '%')-->
-<!--        </if>-->
-<!--        <if test="categotyValue != null">-->
-<!--            AND A.CATEGORY_CODE = #{categoryValue }-->
-<!--        </if>-->
+        A.MENU_CODE
+        , A.MENU_NAME
+        , A.MENU_PRICE
+        , A.CATEGORY_CODE
+        , A.ORDERABLE_STATUS
+        FROM TBL_MENU A
+        <!--        <if test="nameValue != null">-->
+        <!--            WHERE A.MENU_NAME LIKE CONCAT('%', #{ nameValue }, '%')-->
+        <!--        </if>-->
+        <!--        <if test="categotyValue != null">-->
+        <!--            AND A.CATEGORY_CODE = #{categoryValue }-->
+        <!--        </if>-->
         <!-- 해결 방법 1 : <where> 태그 이용 -->
-<!--        <where>-->
-<!--            <if test="nameValue != null">-->
-<!--                A.MENU_NAME LIKE CONCAT('%', #{ nameValue }, '%')-->
-<!--            </if>-->
-<!--            <if test="categoryValue != null">-->
-<!--                AND A.CATEGORY_CODE = #{categoryValue }-->
-<!--            </if>-->
-<!--        </where>-->
+        <!--        <where>-->
+        <!--            <if test="nameValue != null">-->
+        <!--                A.MENU_NAME LIKE CONCAT('%', #{ nameValue }, '%')-->
+        <!--            </if>-->
+        <!--            <if test="categoryValue != null">-->
+        <!--                AND A.CATEGORY_CODE = #{categoryValue }-->
+        <!--            </if>-->
+        <!--        </where>-->
 
         <!-- 해결 방법 2 : <trim> 태그 이용
         <trim> 태그 : 조회 조건에 AND 혹은 OR로 시작하지 않는 다른 문자로 시작하는 경우
@@ -163,4 +163,43 @@
             </if>
         </trim>
     </select>
+
+    <update id="modifyMenu" parameterType="hashmap">
+        <!-- 문제 발생 : 메뉴명 값을 입려하지 않은 경우 SET이 붙지 않아 쿼리 오류로 수정 불가하다. -->
+        <!--        UPDATE-->
+        <!--               TBL_MENU-->
+        <!--        <if test="name != null and name != ''">-->
+        <!--           SET MENU_NAME = #{name}-->
+        <!--        </if>-->
+        <!--        <if test="orderableStatus != null and orderableStatus != ''">-->
+        <!--               ORDERABLER_STATUS = #{orderableStatus}-->
+        <!--        </if>-->
+        <!--         WHERE MENU_CODE = #{code}-->
+
+        <!-- 해결 방안 1 : <set> 태그 이용 -->
+        <!--        UPDATE-->
+        <!--              TBL_MENU-->
+        <!--        <set>-->
+        <!--            <if test="name != null and name != ''">-->
+        <!--                MENU_NAME = #{name}-->
+        <!--            </if>-->
+        <!--            <if test="orderableStatus != null and orderableStatus != ''">-->
+        <!--                ORDERABLER_STATUS = #{orderableStatus}-->
+        <!--            </if>-->
+        <!--            WHERE MENU_CODE = #{code}-->
+        <!--        </set>-->
+
+        <!-- 해결 방안 2 : <trim> 태그 이용 -->
+        UPDATE
+        TBL_MENU
+        <trim prefix="SET" prefixOverrides=", ">
+            <if test="name != null and name != ''">
+                MENU_NAME = #{ name }
+            </if>
+            <if test="orderableStatus != null and orderableStatus != ''">
+                , ORDERABLER_STATUS = #{orderableStatus}
+            </if>
+        </trim>
+        WHERE MENU_CODE = #{code}
+    </update>
 </mapper>

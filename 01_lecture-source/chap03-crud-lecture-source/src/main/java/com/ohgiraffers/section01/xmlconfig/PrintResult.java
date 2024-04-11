@@ -18,7 +18,7 @@ public class PrintResult {
             case "selectOne" : errorMessage = "메뉴 상세 조회를 실패하셨습니다."; break;
             case "insert" : errorMessage = "신규 메뉴 등록을 실패하였습니다."; break;
             case "update" : errorMessage = "메뉴 수정을 실패하였습니다."; break;
-            case "delete" : errorMessage = "메뉴 삭제를 실패하였습니다."; break;
+            case "delete" : errorMessage = "메뉴 삭제을 실패하였습니다."; break;
         }
 
         System.out.println(errorMessage);
@@ -35,7 +35,7 @@ public class PrintResult {
         switch (successCode) {
             case "insert" : successMessage = "신규 메뉴 등록을 성공하였습니다."; break;
             case "update" : successMessage = "메뉴 수정을 성공하였습니다."; break;
-            case "delete" : successMessage = "메뉴 삭제를 성공하였습니다"; break;
+            case "delete" : successMessage = "메뉴 삭제를 성공하였습니다."; break;
         }
 
         System.out.println(successMessage);

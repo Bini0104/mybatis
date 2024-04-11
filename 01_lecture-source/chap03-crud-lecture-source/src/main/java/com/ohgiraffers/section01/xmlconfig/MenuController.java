@@ -57,6 +57,7 @@ public class MenuController {
     }
 
     public void modifyMenu(Map<String, String> parameter) {
+
         int code = Integer.parseInt(parameter.get("code"));
         String name = parameter.get("name");
         int price = Integer.parseInt(parameter.get("price"));
@@ -68,9 +69,9 @@ public class MenuController {
         menu.setPrice(price);
         menu.setCategoryCode(categoryCode);
 
-        if (menuService.modifyMenu(menu)){
+        if(menuService.modifyMenu(menu)) {
             printResult.printSuccessMessage("update");
-        }else {
+        } else {
             printResult.printErrorMessage("update");
         }
     }
@@ -79,28 +80,10 @@ public class MenuController {
 
         int code = Integer.parseInt(parameter.get("code"));
 
-        MenuDTO menu = new MenuDTO();
-
-        menu.setCode(code);
-
-        if (menuService.deleteMenu(code)){
-            printResult.printMenu(menu);
+        if (menuService.deleteMenu(code)) {
             printResult.printSuccessMessage("delete");
-        }else {
+        } else {
             printResult.printErrorMessage("delete");
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

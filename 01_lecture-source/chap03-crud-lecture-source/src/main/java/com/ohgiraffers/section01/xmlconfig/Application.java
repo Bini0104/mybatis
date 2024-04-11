@@ -34,7 +34,6 @@ public class Application {
         } while (true);
     }
 
-
     private static Map<String, String> inputMenuCode() {
 
         Scanner sc = new Scanner(System.in);
@@ -64,6 +63,7 @@ public class Application {
 
         return parameter;
     }
+
     private static Map<String, String> inputModifyMenu() {
 
         Scanner sc = new Scanner(System.in);

@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ohgiraffers.section01.xmlconfig.MemberMapper">
-    <resultMap id="memberResultMap" type="com.ohgiraffers.section01.xmlconfig.MemberDTO">
+        <resultMap id="memberResultMap" type="com.ohgiraffers.section01.xmlconfig.MemberDTO">
         <id property="id" column="EMP_ID"/>
         <result property="name" column="EMP_NAME"/>
         <result property="empNo" column="EMP_NO"/>
